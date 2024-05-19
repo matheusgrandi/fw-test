@@ -1,5 +1,7 @@
 import { useRoutes } from 'react-router-dom'
 import ROUTE_PATHS from './paths'
+import SignUp from '../pages/SignUp'
+import BaseTemplate from '../components/templates/BaseTemplate'
 
 const Router = (): React.ReactElement | null => {
   return useRoutes([
@@ -29,11 +31,13 @@ const Router = (): React.ReactElement | null => {
     },
     {
       path: ROUTE_PATHS.SIGNUP,
-      element: (
-        <>
-          <p>SIGNUP</p>
-        </>
-      ),
+      element: <BaseTemplate />,
+      children: [
+        {
+          path: '',
+          element: <SignUp />,
+        },
+      ],
     },
   ])
 }

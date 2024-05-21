@@ -101,6 +101,7 @@ const SignUpForm = () => {
           <TextInput
             id='email'
             label='Email Address'
+            fullWidth
             {...field}
             error={errors.email?.message}
           />
@@ -114,6 +115,7 @@ const SignUpForm = () => {
           <TextInput
             id='phone'
             label='Phone Number'
+            fullWidth
             {...field}
             error={errors.phone?.message}
           />
@@ -148,6 +150,7 @@ const SignUpForm = () => {
             id='password'
             label='Password'
             type={isPasswordVisible ? 'text' : 'password'}
+            fullWidth
             rightIcon={
               <span
                 onClick={() => setIsPasswordVisible(!isPasswordVisible)}

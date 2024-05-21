@@ -9,9 +9,19 @@ const SignUp: React.FC = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
 
   return (
-    <Grid container className='w-full h-full'>
-      <Grid item xs={12} md={8} className={isMobile ? 'order-2' : ''}>
-        <SignUpCard />
+    <Grid container className='flex w-full h-full justify-between'>
+      <Grid item xs={12} md={8} className='flex'>
+        <h3 className='font-normal text-2xl leading-9 pl-6'>FieldWork</h3>
+        <Grid
+          item
+          xs={12}
+          md={8}
+          className={`flex items-center w- justify-center ${
+            isMobile ? 'order-2' : ''
+          }`}
+        >
+          <SignUpCard />
+        </Grid>
       </Grid>
       <Grid
         item

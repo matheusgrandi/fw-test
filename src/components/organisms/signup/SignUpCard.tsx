@@ -9,9 +9,8 @@ import DollarSignIcon from '../../atoms/icons/DollarSignIcon'
 
 const SignUpCard: React.FC = () => {
   return (
-    <Box className='h-full'>
-      <h3 className='font-normal text-2xl leading-9 pl-6'>FieldWork</h3>
-      <Box className='flex items-center justify-center h-5/6 flex-col px-[calc(6.25rem-1.5rem)]  gap-8'>
+    <Box className='h-full max-w-[60rem]'>
+      <Box className='flex items-center justify-center h-5/6 flex-col px-[calc(6.25rem-1.5rem)] gap-8'>
         <Typography variant='h2' gutterBottom>
           Fieldwork is the leading sales tool for your HVAC business.
         </Typography>

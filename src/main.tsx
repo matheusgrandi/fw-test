@@ -5,6 +5,8 @@ import './index.css'
 import { BrowserRouter } from 'react-router-dom'
 import createDefaultTheme from './theme/index.ts'
 import { ThemeProvider } from '@mui/material'
+import './amplify/amplify-config.ts'
+import { AuthProvider } from './contexts/AuthContext.tsx'
 
 const defaultTheme = createDefaultTheme()
 
@@ -12,7 +14,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter>
       <ThemeProvider theme={defaultTheme}>
-        <App />
+        <AuthProvider>
+          <App />
+        </AuthProvider>
       </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>

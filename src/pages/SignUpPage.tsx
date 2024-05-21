@@ -4,21 +4,19 @@ import { useTheme } from '@mui/material/styles'
 import SignUpForm from '../components/organisms/signup/SignUpForm'
 import SignUpCard from '../components/organisms/signup/SignUpCard'
 
-const SignUp: React.FC = () => {
+const SignUpPage: React.FC = () => {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
 
   return (
     <Grid container className='flex w-full h-full justify-between'>
-      <Grid item xs={12} md={8} className='flex'>
+      <Grid item xs={1} md={8} className='flex max-md:flex-col'>
         <h3 className='font-normal text-2xl leading-9 pl-6'>FieldWork</h3>
         <Grid
           item
           xs={12}
           md={8}
-          className={`flex items-center w- justify-center ${
-            isMobile ? 'order-2' : ''
-          }`}
+          className={`flex items-center w-full justify-center max-md:justify-center max-md:pt-32`}
         >
           <SignUpCard />
         </Grid>
@@ -37,4 +35,4 @@ const SignUp: React.FC = () => {
   )
 }
 
-export default SignUp
+export default SignUpPage

@@ -5,19 +5,20 @@ import {
   FormControlLabel,
   Box,
   Typography,
+  CircularProgress,
 } from '@mui/material'
 import TextInput from '../../atoms/text-input/TextInput'
 import { VisibilityOffOutlined, VisibilityOutlined } from '@mui/icons-material'
 import { useState } from 'react'
+import useOrganization from '../../../hooks/useOrganization'
 
 type FormInputs = {
-  companyName: string
+  organizationName: string
   firstName: string
   lastName: string
   email: string
   phone: string
   password: string
-  agree: boolean
 }
 
 //TODO: Improve mobile responsiveness
@@ -28,12 +29,15 @@ const SignUpForm = () => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormInputs>({
+  } = useForm<FormInputs & { agree: boolean }>({
     mode: 'onChange',
   })
 
-  const onSubmit: SubmitHandler<FormInputs> = (data) => {
-    console.log(data)
+  const { createOrganization, isLoading } = useOrganization()
+
+  const onSubmit: SubmitHandler<FormInputs> = async (data) => {
+    await createOrganization(data)
+    console.log('DATA', data)
   }
 
   return (
@@ -45,15 +49,15 @@ const SignUpForm = () => {
       className='flex flex-col justify-center px-[4.5rem] py-[4.281rem] max-sm:py-0 max-sm:px-0 h-full max-w-full'
     >
       <Controller
-        name='companyName'
+        name='organizationName'
         control={control}
         rules={{ required: 'Company Name is required' }}
         render={({ field }) => (
           <TextInput
             label='Company Name'
-            id='companyName'
+            id='organizationName'
             {...field}
-            error={errors.companyName?.message}
+            error={errors.organizationName?.message}
             fullWidth
           />
         )}
@@ -118,7 +122,27 @@ const SignUpForm = () => {
       <Controller
         name='password'
         control={control}
-        rules={{ required: 'Password is required' }}
+        rules={{
+          required: 'Password is required',
+          minLength: {
+            value: 8,
+            message: 'Password must be at least 8 characters long',
+          },
+          validate: {
+            hasUpperCase: (value) =>
+              /[A-Z]/.test(value) ||
+              'Password must contain at least one uppercase letter',
+            hasLowerCase: (value) =>
+              /[a-z]/.test(value) ||
+              'Password must contain at least one lowercase letter',
+            hasNumber: (value) =>
+              /[0-9]/.test(value) ||
+              'Password must contain at least one number',
+            hasSpecialChar: (value) =>
+              /[!@#$%^&*(),.?":{}|<>]/.test(value) ||
+              'Password must contain at least one special character',
+          },
+        }}
         render={({ field }) => (
           <TextInput
             id='password'
@@ -147,7 +171,7 @@ const SignUpForm = () => {
         rules={{ required: 'You must agree to the terms' }}
         render={({ field }) => (
           <FormControlLabel
-            control={<Checkbox {...field} color='info' checked={field.value} />}
+            control={<Checkbox {...field} color='info' />}
             label={
               <Typography>
                 I agree to Fieldwork's{' '}
@@ -174,6 +198,7 @@ const SignUpForm = () => {
           fontSize: '1rem',
           fontWeight: '500',
           textTransform: 'none',
+          maxHeight: '3rem',
           borderRadius: '0.5rem',
           padding: '0.75rem 0',
           lineHeight: '1rem',
@@ -181,11 +206,15 @@ const SignUpForm = () => {
           mt: '1rem',
         }}
       >
-        Create account
+        {isLoading ? (
+          <CircularProgress size={16} color='inherit' className='' />
+        ) : (
+          'Create account'
+        )}
       </Button>
       <Box className='mt-2 text-center '>
         <Typography>
-          Already have an account?{' '}
+          Already have an account?
           <a href='#signin' className='text-blue-500'>
             Sign In
           </a>

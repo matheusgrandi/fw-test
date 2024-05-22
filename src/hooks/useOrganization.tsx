@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react'
 import useSWR from 'swr'
 import axios from 'axios'
 import { Organization } from '../types/models'
+import { useToast } from './useToast'
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
@@ -18,6 +19,7 @@ interface UseOrganization {
 const fetcher = (url: string) => axios.get(url).then((res) => res.data)
 
 const useOrganization = (organizationId?: number | string): UseOrganization => {
+  const { showToast } = useToast()
   const { data, mutate } = useSWR<Organization>(
     organizationId ? `${API_BASE_URL}/organizations/${organizationId}` : null,
     fetcher
@@ -29,14 +31,17 @@ const useOrganization = (organizationId?: number | string): UseOrganization => {
     async (data: Partial<Organization>): Promise<void> => {
       setIsLoading(true)
       try {
-        await axios.post(`${API_BASE_URL}/organizations`, data)
+        const response = await axios.post(`${API_BASE_URL}/organizations`, data)
+        if (response.status === 201) {
+          showToast('Organization created successfully', 'success')
+        }
         mutate()
       } catch (error) {
-        console.error('Error creating organization:', error)
+        showToast('Error creating organization', 'error')
       }
       setIsLoading(false)
     },
-    [mutate]
+    [mutate, showToast]
   )
 
   const updateOrganization = useCallback(

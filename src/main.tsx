@@ -7,6 +7,10 @@ import createDefaultTheme from './theme/index.ts'
 import { ThemeProvider } from '@mui/material'
 import './amplify/amplify-config.ts'
 import { AuthProvider } from './contexts/AuthContext.tsx'
+import { ToastProvider } from './contexts/ToastContext.tsx'
+
+import 'react-toastify/dist/ReactToastify.css'
+import { ToastContainer } from 'react-toastify'
 
 const defaultTheme = createDefaultTheme()
 
@@ -15,7 +19,10 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <BrowserRouter>
       <ThemeProvider theme={defaultTheme}>
         <AuthProvider>
-          <App />
+          <ToastProvider>
+            <App />
+            <ToastContainer />
+          </ToastProvider>
         </AuthProvider>
       </ThemeProvider>
     </BrowserRouter>

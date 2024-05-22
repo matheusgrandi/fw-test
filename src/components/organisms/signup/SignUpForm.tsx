@@ -37,7 +37,6 @@ const SignUpForm = () => {
 
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
     await createOrganization(data)
-    console.log('DATA', data)
   }
 
   return (

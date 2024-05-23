@@ -1,5 +1,6 @@
 import { ReactNode, createContext, useEffect, useReducer } from 'react'
 import {
+  GetCurrentUserOutput,
   fetchAuthSession,
   getCurrentUser,
   signIn,
@@ -8,7 +9,7 @@ import {
 import { userReducer } from './reducers/user.reducer'
 
 interface AuthContextProps {
-  user: any
+  user: GetCurrentUserOutput | null
   idToken: string | null
   accessToken: string | null
   signIn: (username: string, password: string) => Promise<void>
@@ -31,7 +32,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       try {
         const user = await getCurrentUser()
         const session = await fetchAuthSession()
-        console.log('eita', session.tokens?.idToken?.toString())
+
         dispatch({
           type: 'SET_USER',
           payload: user,

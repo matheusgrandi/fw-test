@@ -1,12 +1,14 @@
+import { GetCurrentUserOutput } from 'aws-amplify/auth'
+
 interface UserState {
-  user: any | null
+  user: GetCurrentUserOutput | null
   idToken: string | null
   accessToken: string | null
 }
 
 interface UserAction {
   type: 'SIGN_IN' | 'SIGN_OUT' | 'SET_USER'
-  payload?: any
+  payload?: UserState['user'] | null
   tokens?: {
     idToken: string
     accessToken: string
@@ -20,7 +22,7 @@ export const userReducer = (
   switch (action.type) {
     case 'SIGN_IN':
       return {
-        user: action.payload,
+        user: action?.payload ?? null,
         idToken: action.tokens?.idToken || null,
         accessToken: action.tokens?.accessToken || null,
       }
@@ -31,7 +33,7 @@ export const userReducer = (
         accessToken: null,
       }
     case 'SET_USER':
-      return { ...state, user: action.payload }
+      return { ...state, user: action.payload ?? null }
     default:
       return state
   }

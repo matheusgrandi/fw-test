@@ -7,13 +7,13 @@ import {
   Typography,
   CircularProgress,
 } from '@mui/material'
-import TextInput from '../../atoms/text-input/TextInput'
+import TextInput from 'src/components/atoms/text-input/TextInput'
 import { VisibilityOffOutlined, VisibilityOutlined } from '@mui/icons-material'
 import { useState } from 'react'
-import useOrganization from '../../../hooks/useOrganization'
-import { useUser } from '../../../hooks/useUser'
+import useOrganization from 'src/hooks/useOrganization'
+import { useUser } from 'src/hooks/useUser'
 import { useNavigate } from 'react-router-dom'
-import { useToast } from '../../../hooks/useToast'
+import { useToast } from 'src/hooks/useToast'
 
 type FormInputs = {
   organizationName: string

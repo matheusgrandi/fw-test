@@ -1,11 +1,11 @@
 import React from 'react'
 import { Box, Typography } from '@mui/material'
-import CollectionIcon from '../../atoms/icons/CollectionIcon'
-import MapIcon from '../../atoms/icons/MapIcon'
-import BarChartIcon from '../../atoms/icons/BarChartIcon'
-import ClockIcon from '../../atoms/icons/ClockIcon'
-import SmileIcon from '../../atoms/icons/SmileIcon'
-import DollarSignIcon from '../../atoms/icons/DollarSignIcon'
+import CollectionIcon from 'src/components/atoms/icons/CollectionIcon'
+import MapIcon from 'src/components/atoms/icons/MapIcon'
+import BarChartIcon from 'src/components/atoms/icons/BarChartIcon'
+import ClockIcon from 'src/components/atoms/icons/ClockIcon'
+import SmileIcon from 'src/components/atoms/icons/SmileIcon'
+import DollarSignIcon from 'src/components/atoms/icons/DollarSignIcon'
 
 const SignUpCard: React.FC = () => {
   return (

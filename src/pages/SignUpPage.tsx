@@ -1,9 +1,8 @@
 import React from 'react'
 import { Grid, useMediaQuery } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
-import SignUpForm from '../components/organisms/signup/SignUpForm'
-import SignUpCard from '../components/organisms/signup/SignUpCard'
-
+import SignUpForm from 'src/components/organisms/signup/SignUpForm'
+import SignUpCard from 'src/components/organisms/signup/SignUpCard'
 const SignUpPage: React.FC = () => {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))

@@ -1,6 +1,6 @@
 import { createContext, ReactNode } from 'react'
 import { toast, ToastOptions } from 'react-toastify'
-import { ToastType, ToastContextType } from '../types/models'
+import { ToastType, ToastContextType } from 'src/types/models'
 
 export const ToastContext = createContext<ToastContextType | undefined>(
   undefined

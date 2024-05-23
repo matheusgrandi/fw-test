@@ -1,8 +1,10 @@
 import { useRoutes } from 'react-router-dom'
 import ROUTE_PATHS from './paths'
-import BaseTemplate from '../components/templates/BaseTemplate'
-import SignUpPage from '../pages/SignUpPage'
+import BaseTemplate from 'src/components/templates/BaseTemplate'
+import SignUpPage from 'src/pages/SignUpPage'
 import PrivateRoute from './PrivateRoute'
+import HomePage from 'src/pages/HomePage'
+import OnboardPage from 'src/pages/OnboardingPage'
 
 const Router = (): React.ReactElement | null => {
   return useRoutes([
@@ -16,19 +18,21 @@ const Router = (): React.ReactElement | null => {
     },
     {
       path: ROUTE_PATHS.HOME,
-      element: (
-        <>
-          <p>HOME</p>
-        </>
-      ),
+      element: <HomePage />,
     },
     {
       path: ROUTE_PATHS.ONBOARDING,
       element: (
         <PrivateRoute>
-          <p>ONBOARDING</p>
+          <BaseTemplate hasHeader />
         </PrivateRoute>
       ),
+      children: [
+        {
+          path: '',
+          element: <OnboardPage />,
+        },
+      ],
     },
     {
       path: ROUTE_PATHS.SIGNIN,

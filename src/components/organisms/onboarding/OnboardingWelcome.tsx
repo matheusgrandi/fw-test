@@ -2,7 +2,6 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button, Typography } from '@mui/material'
 import ROUTE_PATHS from 'src/routes/paths'
-import { useUser } from 'src/hooks/useUser'
 import OnboardingWrapper from 'src/components/molecules/onboarding/OnboardingWrapper'
 import OnboardingStepsList from 'src/components/molecules/onboarding/OnboardingStepsList'
 

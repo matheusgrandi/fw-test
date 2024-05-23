@@ -34,7 +34,6 @@ const fetchUserData = async (token: string) => {
         Authorization: `Bearer ${token}`,
       },
     })
-    console.log('User data:', response.data)
     if (!response.data) {
       return
     }

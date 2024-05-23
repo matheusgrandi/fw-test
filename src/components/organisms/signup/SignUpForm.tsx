@@ -47,6 +47,9 @@ const SignUpForm = () => {
       autoComplete='off'
       className='flex flex-col justify-center px-[4.5rem] py-[4.281rem] max-sm:py-0 max-sm:px-0 h-full max-w-full'
     >
+      <Typography variant='h2' gutterBottom>
+        Join Fieldwork
+      </Typography>
       <Controller
         name='organizationName'
         control={control}
@@ -202,6 +205,7 @@ const SignUpForm = () => {
           textTransform: 'none',
           maxHeight: '3rem',
           borderRadius: '0.5rem',
+          marginBottom: '1rem',
           padding: '0.75rem 0',
           lineHeight: '1rem',
           boxShadow: 'none',
@@ -216,7 +220,7 @@ const SignUpForm = () => {
       </Button>
       <Box className='mt-2 text-center '>
         <Typography>
-          Already have an account?
+          Already have an account? &nbsp;
           <a href='#signin' className='text-blue-500'>
             Sign In
           </a>

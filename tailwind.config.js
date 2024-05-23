@@ -7,6 +7,7 @@ export default {
       colors: {
         primary: '#FDE047',
         secondary: '#374151',
+        info: '#3B82F6',
         tertiary: '#1F2937',
         background: '#F3F4F6',
         black: '#000000',
@@ -16,6 +17,7 @@ export default {
         gray700: '#374151',
         gray900: '#1F2937',
         yellow: '#FDE047',
+        blue700: '#3B82F6',
         white: '#FFFFFF',
       },
     },

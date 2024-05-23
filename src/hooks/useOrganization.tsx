@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react'
 import useSWR from 'swr'
 import axios from 'axios'
-import { Organization } from '../types/models'
+import { Organization } from 'src/types/models'
 import { useToast } from './useToast'
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL

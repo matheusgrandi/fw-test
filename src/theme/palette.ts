@@ -16,6 +16,7 @@ const defaultPalette: PaletteOptions = {
   mode: 'light',
   primary: { main: baseColors.yellow },
   secondary: { main: baseColors.gray700 },
+  warning: { main: baseColors.gray400 },
   background: { default: baseColors.gray400 },
   text: { primary: baseColors.gray900, secondary: baseColors.gray700 },
   info: { main: baseColors.blue700 },

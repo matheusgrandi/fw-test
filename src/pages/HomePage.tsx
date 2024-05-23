@@ -1,12 +1,8 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useUser } from 'src/hooks/useUser'
 
 const HomePage: React.FC = () => {
-  const { user, signIn } = useUser()
-
-  useEffect(() => {
-    signIn('matheus+fw-test5@matheusgrandi.com.br', 'Test1234!')
-  }, [])
+  const { user } = useUser()
 
   return (
     <div>

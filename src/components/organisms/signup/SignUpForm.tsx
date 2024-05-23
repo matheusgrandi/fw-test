@@ -21,8 +21,6 @@ type FormInputs = {
   password: string
 }
 
-//TODO: Improve mobile responsiveness
-
 const SignUpForm = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
   const {

@@ -1,13 +1,16 @@
-import { ReactNode, createContext, useEffect, useState } from 'react'
+import { ReactNode, createContext, useEffect, useReducer } from 'react'
 import {
-  GetCurrentUserOutput,
+  fetchAuthSession,
   getCurrentUser,
   signIn,
   signOut,
 } from 'aws-amplify/auth'
+import { userReducer } from './reducers/user.reducer'
 
 interface AuthContextProps {
-  user: GetCurrentUserOutput | undefined
+  user: any
+  idToken: string | null
+  accessToken: string | null
   signIn: (username: string, password: string) => Promise<void>
   signOut: () => Promise<void>
 }
@@ -17,15 +20,28 @@ export const AuthContext = createContext<AuthContextProps | undefined>(
 )
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<GetCurrentUserOutput | undefined>(undefined)
+  const [state, dispatch] = useReducer(userReducer, {
+    user: null,
+    idToken: null,
+    accessToken: null,
+  })
 
   useEffect(() => {
     const checkUser = async () => {
       try {
         const user = await getCurrentUser()
-        setUser(user)
+        const session = await fetchAuthSession()
+        console.log('eita', session.tokens?.idToken?.toString())
+        dispatch({
+          type: 'SET_USER',
+          payload: user,
+          tokens: {
+            idToken: session.tokens?.idToken?.toString() || '',
+            accessToken: session.tokens?.accessToken.toString() || '',
+          },
+        })
       } catch {
-        setUser(undefined)
+        dispatch({ type: 'SIGN_OUT' })
       }
     }
 
@@ -40,16 +56,32 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         authFlowType: 'USER_PASSWORD_AUTH',
       },
     })
+    const user = await getCurrentUser()
+    const session = await fetchAuthSession()
+    dispatch({
+      type: 'SIGN_IN',
+      payload: user,
+      tokens: {
+        idToken: session.tokens?.idToken?.toString() || '',
+        accessToken: session.tokens?.accessToken?.toString() || '',
+      },
+    })
   }
 
   const signOutUser = async () => {
     await signOut()
-    setUser(undefined)
+    dispatch({ type: 'SIGN_OUT' })
   }
 
   return (
     <AuthContext.Provider
-      value={{ user, signIn: signInUser, signOut: signOutUser }}
+      value={{
+        user: state.user,
+        idToken: state.idToken,
+        accessToken: state.accessToken,
+        signIn: signInUser,
+        signOut: signOutUser,
+      }}
     >
       {children}
     </AuthContext.Provider>

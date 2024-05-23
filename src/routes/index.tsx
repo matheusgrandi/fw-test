@@ -2,6 +2,7 @@ import { useRoutes } from 'react-router-dom'
 import ROUTE_PATHS from './paths'
 import BaseTemplate from '../components/templates/BaseTemplate'
 import SignUpPage from '../pages/SignUpPage'
+import PrivateRoute from './PrivateRoute'
 
 const Router = (): React.ReactElement | null => {
   return useRoutes([
@@ -9,7 +10,7 @@ const Router = (): React.ReactElement | null => {
       path: '*',
       element: (
         <>
-          <p>ESSA MONGONGA NAO EXISTE</p>{' '}
+          <p>404 - Page don't exist</p>
         </>
       ),
     },
@@ -19,6 +20,14 @@ const Router = (): React.ReactElement | null => {
         <>
           <p>HOME</p>
         </>
+      ),
+    },
+    {
+      path: ROUTE_PATHS.ONBOARDING,
+      element: (
+        <PrivateRoute>
+          <p>ONBOARDING</p>
+        </PrivateRoute>
       ),
     },
     {

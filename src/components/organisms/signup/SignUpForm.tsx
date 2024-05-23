@@ -11,6 +11,9 @@ import TextInput from '../../atoms/text-input/TextInput'
 import { VisibilityOffOutlined, VisibilityOutlined } from '@mui/icons-material'
 import { useState } from 'react'
 import useOrganization from '../../../hooks/useOrganization'
+import { useUser } from '../../../hooks/useUser'
+import { useNavigate } from 'react-router-dom'
+import { useToast } from '../../../hooks/useToast'
 
 type FormInputs = {
   organizationName: string
@@ -31,10 +34,26 @@ const SignUpForm = () => {
     mode: 'onChange',
   })
 
-  const { createOrganization, isLoading } = useOrganization()
+  const navigate = useNavigate()
 
-  const onSubmit: SubmitHandler<FormInputs> = async (data) => {
-    await createOrganization(data)
+  const { createOrganization, isLoading } = useOrganization()
+  const { signIn, user, signOut } = useUser()
+
+  if (user) {
+    signOut()
+  }
+
+  const { showToast } = useToast()
+
+  const onSubmit: SubmitHandler<FormInputs> = async (data: FormInputs) => {
+    try {
+      await createOrganization(data)
+      await signIn(data.email, data.password)
+      navigate('/onboarding')
+    } catch (error) {
+      console.error('Error during sign-in:', error)
+      showToast('Error signing in', 'error')
+    }
   }
 
   return (
